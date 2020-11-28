@@ -68,6 +68,7 @@
             android:fontFamily="@font/montserrat_bold"/>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/login_id_textInputLayout"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
@@ -75,6 +76,7 @@
             app:hintAnimationEnabled="false"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_id_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="ID"
@@ -82,6 +84,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/login_password_textInputLayout"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
@@ -90,6 +93,7 @@
             app:passwordToggleEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_password_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Password"

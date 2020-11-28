@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIclient {
     public static final String BASE_URL = "https://tusk-server-api.herokuapp.com";
-    public static final String Append = "/api";
+    public static final String Append = "/api/";
 
     public static UserService userService = null;
 
@@ -22,7 +22,7 @@ public class APIclient {
                     .build();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
+                    .baseUrl(BASE_URL+Append)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient)
                     .build();
