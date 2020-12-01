@@ -10,7 +10,9 @@
     <color name="ui_white">#F3F4F5</color>
     <color name="ui_red">#99FF0000</color>
     <color name="ui_text_black">#99000000</color>
+    <color name="ui_gray">#F3F4F5</color>
     <color name="card_action_button">#6200EE</color>
 
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 </resources>

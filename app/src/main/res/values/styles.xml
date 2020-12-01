@@ -15,5 +15,8 @@
         <item name="android:statusBarColor">@color/ui_white</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
+    <style name="progresbar_theme">
+        <item name="colorAccent">@color/ui_light_blue</item>
+    </style>
 
 </resources>

@@ -21,6 +21,15 @@ public class NewTaskAdapter extends RecyclerView.Adapter<NewTaskAdapter.NewTaskV
     Context context;
     List<Task> taskList;
 
+    public interface taskDetailedView{
+        void onViewClick(int position);
+    }
+
+    taskDetailedView detailedView;
+
+    public void setOnItemViewClickListener(taskDetailedView detailedView){
+        this.detailedView = detailedView;
+    }
     public NewTaskAdapter(Context context, List<Task> taskList){
         this.taskList = taskList;
         this.context = context;
@@ -56,6 +65,7 @@ public class NewTaskAdapter extends RecyclerView.Adapter<NewTaskAdapter.NewTaskV
     public class NewTaskViewholder extends RecyclerView.ViewHolder{
 
         TextView milestones, heading, assignedby, date;
+        TextView viewbtn;
 
         public NewTaskViewholder(@NonNull View itemView) {
             super(itemView);
@@ -64,6 +74,14 @@ public class NewTaskAdapter extends RecyclerView.Adapter<NewTaskAdapter.NewTaskV
             heading = itemView.findViewById(R.id.heading_textview);
             assignedby = itemView.findViewById(R.id.assignedby_textview);
             date = itemView.findViewById(R.id.date_textview);
+            viewbtn = itemView.findViewById(R.id.view_button);
+
+            viewbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    detailedView.onViewClick(getAdapterPosition());
+                }
+            });
 
         }
     }
