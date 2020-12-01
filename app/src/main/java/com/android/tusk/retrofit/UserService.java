@@ -1,5 +1,6 @@
 package com.android.tusk.retrofit;
 
+import com.android.tusk.model.AllTask;
 import com.android.tusk.model.LoginRequest;
 import com.android.tusk.model.LoginResponse;
 import com.android.tusk.model.RegisterRequest;
@@ -7,6 +8,7 @@ import com.android.tusk.model.RegisterResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface UserService {
@@ -18,5 +20,9 @@ public interface UserService {
     //login
     @POST("auth/login")
     Call<LoginResponse> getLoginResponse(@Body LoginRequest loginRequest);
+
+    //new Task Data
+    @GET("task/find/all")
+    Call<AllTask> getAllTask();
 
 }
