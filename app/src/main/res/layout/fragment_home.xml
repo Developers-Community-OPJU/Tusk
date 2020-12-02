@@ -27,6 +27,7 @@
                     android:layout_margin="10dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="New Tasks"
+                    android:textColor="@color/ui_text_black"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textSize="14sp" />
@@ -36,6 +37,39 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Completed"
+                    android:textColor="@color/ui_text_black"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textSize="14sp"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:padding="10dp"
+                    android:background="@drawable/gray_curve_bg"
+                    android:layout_gravity="center_vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No Tasks Have been Completed."
+                        android:fontFamily="@font/roboto"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/ui_text_black"/>
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

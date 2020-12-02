@@ -18,5 +18,8 @@
     <style name="progresbar_theme">
         <item name="colorAccent">@color/ui_light_blue</item>
     </style>
+    <style name="floating_button_theme">
+        <item name="colorAccent">@color/card_action_button</item>
+    </style>
 
 </resources>

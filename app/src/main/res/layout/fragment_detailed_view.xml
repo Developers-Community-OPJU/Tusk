@@ -128,18 +128,92 @@
                 android:textAllCaps="false"
                 android:textColor="@color/ui_text_black"
                 android:textSize="14sp" />
+
             <TextView
                 android:id="@+id/view_description_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/ui_text_black"
-                android:textAlignment="textStart"
-                android:textSize="14sp"
-                android:textAllCaps="false"
-                android:fontFamily="@font/roboto"
                 android:layout_marginTop="10dp"
-                android:text="But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself."/>
+                android:fontFamily="@font/roboto"
+                android:text="But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself."
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="@color/ui_text_black"
+                android:textSize="14sp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Milestones"
+                    android:textAllCaps="false"
+                    android:textColor="@color/ui_text_black"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_vertical"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="1.3"
+                    android:weightSum="2"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingStart="30dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/gray_curve_bg">
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <View
+                            android:id="@+id/green_indicator"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/green_circle"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Completed"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="@color/ui_text_black"
+                            android:textSize="12sp"
+                            android:textAllCaps="false"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_toRightOf="@id/green_indicator"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <View
+                            android:id="@+id/red_indicator"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/red_circle"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Half"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="@color/ui_text_black"
+                            android:textSize="12sp"
+                            android:textAllCaps="false"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_toRightOf="@id/red_indicator"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.tusk.Admin.admin_dashboard;
 import com.android.tusk.model.LoginRequest;
 import com.android.tusk.model.LoginResponse;
 import com.android.tusk.retrofit.APIclient;
@@ -61,30 +62,35 @@ public class Login_screen extends AppCompatActivity {
 
         LoginRequest loginRequest = new LoginRequest(id, password);
 
-        Call<LoginResponse> loginResponseCall = APIclient.getInterface().getLoginResponse(loginRequest);
-        loginResponseCall.enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                if (response.isSuccessful()){
-                    LoginResponse loginResponse = response.body();
-                    ToastMassage(loginResponse.getMsg());
+        //admin login check
+        if (id.equals("123456") && password.equals("admin123")) {
+            startActivity(new Intent(Login_screen.this, admin_dashboard.class));
+        } else {
+            Call<LoginResponse> loginResponseCall = APIclient.getInterface().getLoginResponse(loginRequest);
+            loginResponseCall.enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    if (response.isSuccessful()) {
+                        LoginResponse loginResponse = response.body();
+                        ToastMassage(loginResponse.getMsg());
 
-                    if (loginResponse.getAllowed()) {
+                        if (loginResponse.getAllowed()) {
 
-                        sessionManager.saveAuthToken(loginResponse.getToken());
+                            sessionManager.saveAuthToken(loginResponse.getToken());
 
-                        Intent intent = new Intent(Login_screen.this, Dashboard.class);
-                        startActivity(intent);
-                        finish();
+                            Intent intent = new Intent(Login_screen.this, Dashboard.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                ToastMassage("failed");
-            }
-        });
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    ToastMassage("failed");
+                }
+            });
+        }
     }
 
     private void ToastMassage(String msg) {
@@ -102,7 +108,7 @@ public class Login_screen extends AppCompatActivity {
         password_textInput_lay = findViewById(R.id.login_password_textInputLayout);
 
         //initialize textInputEditText
-        idedtx  = findViewById(R.id.login_id_edittext);
+        idedtx = findViewById(R.id.login_id_edittext);
         passwordedtx = findViewById(R.id.login_password_edittext);
     }
 
