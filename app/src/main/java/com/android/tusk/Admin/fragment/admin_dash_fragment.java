@@ -16,6 +16,7 @@ import com.android.tusk.adapter.NewTaskAdapter;
 import com.android.tusk.model.AllTask;
 import com.android.tusk.model.Task;
 import com.android.tusk.retrofit.APIclient;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import retrofit2.Response;
 public class admin_dash_fragment extends Fragment {
 
     RecyclerView recyclerView;
-    FloatingActionButton floatingActionButton;
+    ExtendedFloatingActionButton floatingActionButton;
 
     public admin_dash_fragment() {
         // Required empty public constructor

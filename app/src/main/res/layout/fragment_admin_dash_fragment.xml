@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Admin.fragment.admin_dash_fragment">
 
     <androidx.core.widget.NestedScrollView
@@ -42,16 +43,25 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/createTask_floating_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:theme="@style/floating_button_theme"
-        android:src="@drawable/ic_add">
-
-    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="create"
+        android:textColor="@color/white"
+        android:fontFamily="@font/roboto_medium"
+        android:textAllCaps="true"
+        android:textSize="14sp"
+        android:backgroundTint="@color/card_action_button"
+        app:icon="@drawable/ic_add"
+        app:iconSize="24dp"
+        android:elevation="3dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

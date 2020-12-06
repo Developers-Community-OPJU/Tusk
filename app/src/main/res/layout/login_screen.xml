@@ -74,7 +74,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             app:hintAnimationEnabled="false"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+            style="@style/TextInputLayoutStyle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login_id_edittext"
                 android:layout_width="match_parent"
@@ -91,7 +91,7 @@
             android:layout_marginTop="10dp"
             app:hintAnimationEnabled="false"
             app:passwordToggleEnabled="true"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+            style="@style/TextInputLayoutStyle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login_password_edittext"
                 android:layout_width="match_parent"

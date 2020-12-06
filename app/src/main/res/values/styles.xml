@@ -7,7 +7,7 @@
     </style>
 
     <!-- No Action Bar theme. -->
-    <style name="noActionbar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="noActionbar" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorPrimary">@color/ui_light_blue</item>
         <item name="colorPrimaryDark">@color/design_default_color_primary_dark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -15,11 +15,14 @@
         <item name="android:statusBarColor">@color/ui_white</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
+
     <style name="progresbar_theme">
         <item name="colorAccent">@color/ui_light_blue</item>
     </style>
-    <style name="floating_button_theme">
-        <item name="colorAccent">@color/card_action_button</item>
+
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@color/ui_black</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
 </resources>

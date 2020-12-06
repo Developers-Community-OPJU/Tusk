@@ -63,7 +63,7 @@ public class Login_screen extends AppCompatActivity {
         LoginRequest loginRequest = new LoginRequest(id, password);
 
         //admin login check
-        if (id.equals("123456") && password.equals("admin123")) {
+        if (id.equals("a") && password.equals("b")) {
             startActivity(new Intent(Login_screen.this, admin_dashboard.class));
         } else {
             Call<LoginResponse> loginResponseCall = APIclient.getInterface().getLoginResponse(loginRequest);
