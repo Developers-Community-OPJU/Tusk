@@ -14,6 +14,7 @@ import com.android.tusk.model.LoginRequest;
 import com.android.tusk.model.LoginResponse;
 import com.android.tusk.retrofit.APIclient;
 import com.android.tusk.retrofit.SessionManager;
+import com.android.tusk.utils.ProgressDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -28,6 +29,7 @@ public class Login_screen extends AppCompatActivity {
     TextInputLayout id_textInput_lay, password_textInput_lay;
     TextInputEditText idedtx, passwordedtx;
     SessionManager sessionManager;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class Login_screen extends AppCompatActivity {
 
         sessionManager = new SessionManager(this);
         sessionManager.CreatePreferences();
+
+        progressDialog = new ProgressDialog(this);
 
         signupbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +54,7 @@ public class Login_screen extends AppCompatActivity {
         submitbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog.showLoader();
                 requestToServer();
             }
         });
@@ -73,6 +78,7 @@ public class Login_screen extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         LoginResponse loginResponse = response.body();
                         ToastMassage(loginResponse.getMsg());
+                        progressDialog.dismissLoader();
 
                         if (loginResponse.getAllowed()) {
 
@@ -88,6 +94,7 @@ public class Login_screen extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
                     ToastMassage("failed");
+                    progressDialog.dismissLoader();
                 }
             });
         }
@@ -110,11 +117,5 @@ public class Login_screen extends AppCompatActivity {
         //initialize textInputEditText
         idedtx = findViewById(R.id.login_id_edittext);
         passwordedtx = findViewById(R.id.login_password_edittext);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
     }
 }

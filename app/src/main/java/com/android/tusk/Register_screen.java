@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.android.tusk.model.RegisterRequest;
 import com.android.tusk.model.RegisterResponse;
 import com.android.tusk.retrofit.APIclient;
+import com.android.tusk.utils.ProgressDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -24,6 +25,7 @@ public class Register_screen extends AppCompatActivity {
     TextInputEditText firstedt, lastedt, branchedt, idedt, passwordedt;
     TextInputLayout first_input_lay, last_input_lay, branch_input_lay, id_input_lay, password_input_lay;
     RelativeLayout registerbtn;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +34,12 @@ public class Register_screen extends AppCompatActivity {
 
         intializationView();
 
+        progressDialog = new ProgressDialog(this);
+
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog.showLoader();
                 postUserInfo();
             }
         });
@@ -58,6 +63,7 @@ public class Register_screen extends AppCompatActivity {
                 if (response.isSuccessful()){
                     RegisterResponse registerResponse = response.body();
                     ToastMassage(registerResponse.getMsg());
+                    progressDialog.dismissLoader();
 
                     Intent intent = new Intent(Register_screen.this, Login_screen.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -67,6 +73,7 @@ public class Register_screen extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                progressDialog.dismissLoader();
                 ToastMassage("failed");
             }
         });
