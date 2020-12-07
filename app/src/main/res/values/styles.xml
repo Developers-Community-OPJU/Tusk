@@ -14,6 +14,11 @@
 
         <item name="android:statusBarColor">@color/ui_white</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+
+        <!--add material calendar theme-->
+        <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
+        <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
+        <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
     </style>
 
     <style name="progresbar_theme">
