@@ -10,10 +10,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_logo_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Login_screen"
+        android:theme="@style/noActionbar">
+        <activity android:name=".Admin.admin_dashboard"
             android:screenOrientation="portrait"
             android:theme="@style/noActionbar"/>
+        <activity
+            android:name=".Dashboard"
+            android:screenOrientation="portrait"
+            android:theme="@style/noActionbar" />
+        <activity
+            android:name=".Register_screen"
+            android:screenOrientation="portrait"
+            android:theme="@style/noActionbar" />
+        <activity
+            android:name=".Login_screen"
+            android:screenOrientation="portrait"
+            android:theme="@style/noActionbar" />
         <activity
             android:name=".splash_hold"
             android:screenOrientation="portrait"
