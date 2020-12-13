@@ -10,8 +10,10 @@ import com.android.tusk.model.RegisterResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface UserService {
 
@@ -23,11 +25,16 @@ public interface UserService {
     @POST("auth/login")
     Call<LoginResponse> getLoginResponse(@Body LoginRequest loginRequest);
 
-    //new Task Data
+    //all Task Data
     @GET("task/find/all")
     Call<AllTask> getAllTask();
 
     //create task
     @POST("task/push")
     Call<AssignTaskResponse> getCreateTaskResponse(@Body AssignTaskRequest assignTaskRequest);
+
+    //delete task
+    @DELETE("task/pull/{id}")
+    Call<Void> deleteTask(@Path("id") String id);
+
 }

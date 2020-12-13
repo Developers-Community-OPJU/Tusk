@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.tusk.Admin.adapter.CreatedTaskAdapter;
 import com.android.tusk.R;
 import com.android.tusk.adapter.NewTaskAdapter;
 import com.android.tusk.model.AllTask;
@@ -18,6 +19,7 @@ import com.android.tusk.model.Task;
 import com.android.tusk.retrofit.APIclient;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +28,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class admin_dash_fragment extends Fragment {
+public class admin_dash_fragment extends Fragment implements CreatedTaskAdapter.cardActionClick {
 
     RecyclerView recyclerView;
     ExtendedFloatingActionButton floatingActionButton;
+    List<Task> taskList;
+
+    CreatedTaskAdapter taskAdapter;
 
     public admin_dash_fragment() {
         // Required empty public constructor
@@ -67,14 +72,15 @@ public class admin_dash_fragment extends Fragment {
             public void onResponse(Call<AllTask> call, Response<AllTask> response) {
                 if (response.isSuccessful()){
                     AllTask allTask = response.body();
-                    List<Task> taskList = new ArrayList<>();
+                    taskList = new ArrayList<>();
 
                     for (Task task : allTask.getTasks()){
                         taskList.add(task);
                     }
 
-                    NewTaskAdapter taskAdapter = new NewTaskAdapter(getContext(), taskList);
+                    taskAdapter = new CreatedTaskAdapter(getContext(), taskList);
                     recyclerView.setAdapter(taskAdapter);
+                    taskAdapter.setOnCardActionClickListener(admin_dash_fragment.this);
                     taskAdapter.notifyDataSetChanged();
                 }
             }
@@ -96,5 +102,28 @@ public class admin_dash_fragment extends Fragment {
 
     private void ToastMassage(String msg){
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCardActionClick(final int position) {
+        //delete task
+        Task task = taskList.get(position);
+
+        String taskId = task.getId();
+
+        Call<Void> deleteTaskCall = APIclient.getInterface().deleteTask(taskId);
+        deleteTaskCall.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful() && response.code() == 200){
+                    ToastMassage("task remove successfully");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                ToastMassage("failed something error!!");
+            }
+        });
     }
 }

@@ -11,14 +11,20 @@ import android.widget.TextView;
 
 import com.android.tusk.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import static com.android.tusk.fragment.Home.ASSIGNED_BY;
+import static com.android.tusk.fragment.Home.CREATED_DATE;
 import static com.android.tusk.fragment.Home.DESCRIPTION;
 import static com.android.tusk.fragment.Home.HEADING;
 import static com.android.tusk.fragment.Home.MILESTONES;
 
 public class detailed_view extends Fragment {
 
-    TextView heading, assigned_by, description, millstone;
+    TextView heading, assigned_by, description, millstone, created_date;
 
     public detailed_view() {
         // Required empty public constructor
@@ -49,13 +55,33 @@ public class detailed_view extends Fragment {
             String get_heading = bundle.getString(HEADING);
             String get_assignby = bundle.getString(ASSIGNED_BY);
             String get_description = bundle.getString(DESCRIPTION);
+            String get_raw_date = bundle.getString(CREATED_DATE);
             int get_millstone = bundle.getInt(MILESTONES);
+
+            String date = dateformate(get_raw_date, 1);
 
             heading.setText(get_heading);
             assigned_by.setText(get_assignby);
             description.setText(get_description);
+            created_date.setText(date);
             millstone.setText(get_millstone+" Milestones");
         }
+    }
+
+    private String dateformate(String get_raw_date, int i) {
+        Date date = null;
+        String dateFormat;
+
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US).parse(get_raw_date);
+            if (i == 1){
+                dateFormat = new SimpleDateFormat("dd MMM , yyyy", Locale.US).format(date);
+                return dateFormat;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return get_raw_date;
     }
 
     private void initializaView(View view) {
@@ -63,5 +89,6 @@ public class detailed_view extends Fragment {
         assigned_by = view.findViewById(R.id.view_assignby_textview);
         description = view.findViewById(R.id.view_description_textview);
         millstone = view.findViewById(R.id.view_millstone_textview);
+        created_date = view.findViewById(R.id.created_date_textview);
     }
 }

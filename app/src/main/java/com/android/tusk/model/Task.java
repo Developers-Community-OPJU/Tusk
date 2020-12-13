@@ -28,6 +28,9 @@ public class Task {
     @SerializedName("milestones")
     @Expose
     private List<Milestone> milestones = null;
+    @SerializedName("createdAt")
+    @Expose
+    private String createdAt;
     @SerializedName("__v")
     @Expose
     private Integer v;
@@ -86,6 +89,14 @@ public class Task {
 
     public void setMilestones(List<Milestone> milestones) {
         this.milestones = milestones;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Integer getV() {

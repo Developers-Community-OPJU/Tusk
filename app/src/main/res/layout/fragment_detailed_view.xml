@@ -51,6 +51,7 @@
                 android:weightSum="2">
 
                 <TextView
+                    android:id="@+id/created_date_textview"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
