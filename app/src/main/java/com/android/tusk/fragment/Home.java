@@ -33,6 +33,7 @@ public class Home extends Fragment implements NewTaskAdapter.taskDetailedView {
     public static final String DESCRIPTION = "description";
     public static final String ASSIGNED_BY = "assigned_by";
     public static final String MILESTONES = "milestones";
+    public static final String CREATED_DATE = "created_date";
 
     RecyclerView newTaskRecycler;
     List<Task> taskArrayList;
@@ -108,6 +109,7 @@ public class Home extends Fragment implements NewTaskAdapter.taskDetailedView {
         bundle.putString(HEADING, task.getHeading());
         bundle.putString(ASSIGNED_BY, task.getAssignedBy());
         bundle.putString(DESCRIPTION, task.getDescription());
+        bundle.putString(CREATED_DATE, task.getCreatedAt());
         bundle.putInt(MILESTONES, milestoneList.size());
         viewFragment.setArguments(bundle);
         getFragmentManager().beginTransaction().replace(R.id.frame_container, viewFragment).addToBackStack("home").commit();

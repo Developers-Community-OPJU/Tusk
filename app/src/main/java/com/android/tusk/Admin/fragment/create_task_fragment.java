@@ -11,6 +11,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.tusk.R;
@@ -35,7 +37,9 @@ public class create_task_fragment extends Fragment {
 
     TextInputEditText headingEdx, descriptionEdx, assignbyEdx, assigntoEdx, duedateEdx;
     TextInputLayout duedate_input_lay;
-    MaterialButton createTaskBtn;
+    MaterialButton createTaskBtn, addMilestonebtn;
+    LinearLayout linearlist;
+
 
     public create_task_fragment() {
         // Required empty public constructor
@@ -56,6 +60,13 @@ public class create_task_fragment extends Fragment {
 
         editTextCalendarIconClickListener();
 
+        addMilestonebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addMilestoneView();
+            }
+        });
+
         createTaskBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,6 +75,27 @@ public class create_task_fragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void addMilestoneView() {
+        final View view = getLayoutInflater().inflate(R.layout.add_milestone_dynamic_view, null, false);
+
+        TextInputEditText milestoneTitle = view.findViewById(R.id.milestone_title_edittext);
+        TextInputEditText milestoneDescription = view.findViewById(R.id.milestone_description_edittext);
+        ImageView closeView = view.findViewById(R.id.closeImagebutton);
+
+        closeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeMilestoneView(view);
+            }
+        });
+
+        linearlist.addView(view);
+    }
+
+    private void removeMilestoneView(View view) {
+        linearlist.removeView(view);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -139,6 +171,9 @@ public class create_task_fragment extends Fragment {
         duedate_input_lay = view.findViewById(R.id.duedate_textInputLayout);
 
         createTaskBtn = view.findViewById(R.id.create_task_button);
+        addMilestonebtn = view.findViewById(R.id.addMilestoneButton);
+
+        linearlist = view.findViewById(R.id.linearlist);
     }
 
     private void ToastMassage(String msg) {

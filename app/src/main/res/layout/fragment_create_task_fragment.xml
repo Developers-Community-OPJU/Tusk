@@ -123,10 +123,44 @@
                     android:longClickable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:text="Milestones"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/ui_text_black"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_medium"/>
+                <LinearLayout
+                    android:id="@+id/linearlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp">
+
+                </LinearLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/addMilestoneButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    app:iconGravity="textStart"
+                    app:icon="@drawable/ic_add"
+                    app:backgroundTint="@color/ui_gray"
+                    android:text="Add Milestone"
+                    style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>
+            </LinearLayout>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/create_task_button"
                 android:layout_width="150dp"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
                 style="@style/Widget.MaterialComponents.Button"
                 android:layout_gravity="center_horizontal"
                 android:background="@color/ui_light_blue"
