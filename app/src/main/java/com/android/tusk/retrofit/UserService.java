@@ -1,8 +1,8 @@
 package com.android.tusk.retrofit;
 
 import com.android.tusk.model.AllTask;
-import com.android.tusk.model.AssignTaskRequest;
-import com.android.tusk.model.AssignTaskResponse;
+import com.android.tusk.Admin.model.AssignTaskRequest;
+import com.android.tusk.Admin.model.AssignTaskResponse;
 import com.android.tusk.model.LoginRequest;
 import com.android.tusk.model.LoginResponse;
 import com.android.tusk.model.RegisterRequest;

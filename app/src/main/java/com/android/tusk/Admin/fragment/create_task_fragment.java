@@ -5,28 +5,28 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.tusk.Admin.model.MilestoneCollectionRequest;
 import com.android.tusk.R;
-import com.android.tusk.model.AssignTaskRequest;
-import com.android.tusk.model.AssignTaskResponse;
+import com.android.tusk.Admin.model.AssignTaskRequest;
+import com.android.tusk.Admin.model.AssignTaskResponse;
 import com.android.tusk.retrofit.APIclient;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.datepicker.MaterialCalendar;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
 import retrofit2.Call;
@@ -39,6 +39,8 @@ public class create_task_fragment extends Fragment {
     TextInputLayout duedate_input_lay;
     MaterialButton createTaskBtn, addMilestonebtn;
     LinearLayout linearlist;
+
+    List<MilestoneCollectionRequest> milestoneCollections = new ArrayList<>();
 
 
     public create_task_fragment() {
@@ -142,7 +144,9 @@ public class create_task_fragment extends Fragment {
         String assignby = assignbyEdx.getText().toString().trim();
         String assignto = assigntoEdx.getText().toString().trim();
 
-        AssignTaskRequest assignTaskRequest = new AssignTaskRequest(heading, description, assignby, assignto);
+        getMilestoneFromDynamicView();
+
+        AssignTaskRequest assignTaskRequest = new AssignTaskRequest(heading, description, assignby, assignto, milestoneCollections);
 
         Call<AssignTaskResponse> taskResponseCall = APIclient.getInterface().getCreateTaskResponse(assignTaskRequest);
         taskResponseCall.enqueue(new Callback<AssignTaskResponse>() {
@@ -159,6 +163,31 @@ public class create_task_fragment extends Fragment {
                 ToastMassage("failed");
             }
         });
+    }
+
+    private void getMilestoneFromDynamicView() {
+        //if condition
+        checkValidView();
+    }
+
+    private boolean checkValidView() {
+        milestoneCollections.clear();
+        boolean result = true;
+
+        for (int i = 0; i < linearlist.getChildCount(); i++){
+            View view = linearlist.getChildAt(i);
+
+            TextInputEditText milestoneTitle = view.findViewById(R.id.milestone_title_edittext);
+            TextInputEditText milestoneDescription = view.findViewById(R.id.milestone_description_edittext);
+
+            String title = milestoneTitle.getText().toString();
+            String description = milestoneDescription.getText().toString();
+
+            MilestoneCollectionRequest collection = new MilestoneCollectionRequest(title, description);
+            milestoneCollections.add(collection);
+        }
+
+        return result;
     }
 
     private void initializeView(View view) {

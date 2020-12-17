@@ -1,5 +1,5 @@
 
-package com.android.tusk.model;
+package com.android.tusk.Admin.model;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

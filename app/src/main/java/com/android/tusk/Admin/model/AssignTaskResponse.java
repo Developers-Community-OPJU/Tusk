@@ -1,6 +1,7 @@
 
-package com.android.tusk.model;
+package com.android.tusk.Admin.model;
 
+import com.android.tusk.model.Task;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -11,7 +12,7 @@ public class AssignTaskResponse {
     private String msg;
     @SerializedName("task")
     @Expose
-    private Task task;
+    private AssignTask task;
 
     public String getMsg() {
         return msg;
@@ -21,11 +22,11 @@ public class AssignTaskResponse {
         this.msg = msg;
     }
 
-    public Task getTask() {
+    public AssignTask getTask() {
         return task;
     }
 
-    public void setTask(Task task) {
+    public void setTask(AssignTask task) {
         this.task = task;
     }
 
