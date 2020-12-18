@@ -18,7 +18,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
 
     Toolbar toolbar;
     DrawerLayout drawerLayout;
-    RelativeLayout primary, logout;
+    RelativeLayout home, logout;
     SessionManager sessionManager;
 
     @Override
@@ -51,8 +51,8 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         toolbar = findViewById(R.id.dashboard_toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
 
-        primary = this.findViewById(R.id.primary_action);
-        primary.setOnClickListener(this);
+        home = this.findViewById(R.id.dashboard_action);
+        home.setOnClickListener(this);
         logout = this.findViewById(R.id.logout_action);
         logout.setOnClickListener(this);
     }
@@ -69,7 +69,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.primary_action:
+            case R.id.dashboard_action:
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new Home()).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
