@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.android.tusk.Dashboard;
 import com.android.tusk.R;
 import com.android.tusk.adapter.NewTaskAdapter;
 import com.android.tusk.model.AllTask;
@@ -20,7 +19,6 @@ import com.android.tusk.model.Task;
 import com.android.tusk.retrofit.APIclient;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,7 +30,8 @@ public class Home extends Fragment implements NewTaskAdapter.taskDetailedView {
     public static final String HEADING = "heading";
     public static final String DESCRIPTION = "description";
     public static final String ASSIGNED_BY = "assigned_by";
-    public static final String MILESTONES = "milestones";
+    public static final String MILESTONES_COUNT = "milestones";
+    public static final String MILESTONE_LIST = "milestone_array_list";
     public static final String CREATED_DATE = "created_date";
 
     RecyclerView newTaskRecycler;
@@ -98,8 +97,10 @@ public class Home extends Fragment implements NewTaskAdapter.taskDetailedView {
     @Override
     public void onViewClick(int position) {
         Task task = taskArrayList.get(position);
-        List<Milestone> milestoneList = new ArrayList<>();
+        ArrayList<Milestone> milestoneList = new ArrayList<>();
 
+        //init model
+        Milestone milestones = new Milestone();
         for (Milestone milestone : task.getMilestones()){
             milestoneList.add(milestone);
         }
@@ -110,7 +111,8 @@ public class Home extends Fragment implements NewTaskAdapter.taskDetailedView {
         bundle.putString(ASSIGNED_BY, task.getAssignedBy());
         bundle.putString(DESCRIPTION, task.getDescription());
         bundle.putString(CREATED_DATE, task.getCreatedAt());
-        bundle.putInt(MILESTONES, milestoneList.size());
+        bundle.putInt(MILESTONES_COUNT, milestoneList.size());
+        bundle.putParcelableArrayList(MILESTONE_LIST, milestoneList);
         viewFragment.setArguments(bundle);
         getFragmentManager().beginTransaction().replace(R.id.frame_container, viewFragment).addToBackStack("home").commit();
     }
