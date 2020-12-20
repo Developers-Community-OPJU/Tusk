@@ -88,7 +88,7 @@
                 android:text="report issue"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/card_action_button"
+                android:textColor="@color/ui_purple"
                 android:textSize="14sp" />
 
             <TextView
@@ -101,7 +101,7 @@
                 android:text="done"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/card_action_button"
+                android:textColor="@color/ui_purple"
                 android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>
