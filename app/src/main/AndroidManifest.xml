@@ -11,10 +11,12 @@
         android:roundIcon="@mipmap/ic_logo_launcher"
         android:supportsRtl="true"
         android:theme="@style/noActionbar">
-        <activity android:name=".detailed_view"
-            android:screenOrientation="portrait"
+        <activity android:name=".Admin.admin_student_task_report"></activity>
+        <activity
+            android:name=".detailed_view"
             android:parentActivityName=".Dashboard"
-            android:theme="@style/noActionbar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/noActionbar" />
         <activity
             android:name=".SearchTask"
             android:parentActivityName=".Dashboard"

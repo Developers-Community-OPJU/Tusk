@@ -6,17 +6,21 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.android.tusk.Admin.fragment.admin_dash_fragment;
 import com.android.tusk.R;
 
-public class admin_dashboard extends AppCompatActivity {
+public class admin_dashboard extends AppCompatActivity implements View.OnClickListener {
 
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     FrameLayout frameLayout;
+    RelativeLayout dashboard, studentreport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,11 @@ public class admin_dashboard extends AppCompatActivity {
         drawerLayout = findViewById(R.id.admin_drawer_layout);
         toolbar = findViewById(R.id.admin_dashboard_toolbar);
         frameLayout = findViewById(R.id.admin_frame_container);
+
+        dashboard = findViewById(R.id.dashboard_drawer_action);
+        dashboard.setOnClickListener(this);
+        studentreport = findViewById(R.id.student_report_drawer_action);
+        studentreport.setOnClickListener(this);
     }
 
     @Override
@@ -52,6 +61,22 @@ public class admin_dashboard extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
         }else {
             super.onBackPressed();
+        }
+    }
+
+    //drawer action clicks
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.dashboard_drawer_action:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                getSupportFragmentManager().beginTransaction().replace(R.id.admin_frame_container, new admin_dash_fragment()).commit();
+                break;
+            case R.id.student_report_drawer_action:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                Intent intent = new Intent(admin_dashboard.this, admin_student_task_report.class);
+                startActivity(intent);
+                break;
         }
     }
 }

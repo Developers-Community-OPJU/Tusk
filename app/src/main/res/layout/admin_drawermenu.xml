@@ -86,6 +86,7 @@
         android:layout_marginTop="5dp">
 
         <RelativeLayout
+            android:id="@+id/dashboard_drawer_action"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
@@ -161,6 +162,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/student_report_drawer_action"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
