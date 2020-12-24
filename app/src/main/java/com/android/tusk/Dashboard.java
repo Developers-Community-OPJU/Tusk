@@ -1,5 +1,6 @@
 package com.android.tusk;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,8 +9,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.android.tusk.fragment.Home;
 import com.android.tusk.retrofit.SessionManager;
@@ -37,6 +41,22 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.user_dashboard_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.search:
+                startActivity(new Intent(Dashboard.this, SearchTask.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void setDrawer() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setCustomView(R.layout.actionbar);
@@ -59,16 +79,16 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }else {
+        } else {
             super.onBackPressed();
         }
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.dashboard_action:
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new Home()).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);

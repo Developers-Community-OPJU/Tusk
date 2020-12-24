@@ -1,5 +1,6 @@
 package com.android.tusk.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.android.tusk.R;
 import com.android.tusk.adapter.NewTaskAdapter;
+import com.android.tusk.detailed_view;
 import com.android.tusk.model.AllTask;
 import com.android.tusk.model.Milestone;
 import com.android.tusk.model.Task;
@@ -105,15 +107,14 @@ public class Home extends Fragment implements NewTaskAdapter.taskDetailedView {
             milestoneList.add(milestone);
         }
 
-        detailed_view viewFragment = new detailed_view();
-        Bundle bundle = new Bundle();
-        bundle.putString(HEADING, task.getHeading());
-        bundle.putString(ASSIGNED_BY, task.getAssignedBy());
-        bundle.putString(DESCRIPTION, task.getDescription());
-        bundle.putString(CREATED_DATE, task.getCreatedAt());
-        bundle.putInt(MILESTONES_COUNT, milestoneList.size());
-        bundle.putParcelableArrayList(MILESTONE_LIST, milestoneList);
-        viewFragment.setArguments(bundle);
-        getFragmentManager().beginTransaction().replace(R.id.frame_container, viewFragment).addToBackStack("home").commit();
+        Intent intent = new Intent(getContext(), detailed_view.class);
+        intent.putExtra(HEADING, task.getHeading());
+        intent.putExtra(ASSIGNED_BY, task.getAssignedBy());
+        intent.putExtra(DESCRIPTION, task.getDescription());
+        intent.putExtra(CREATED_DATE, task.getCreatedAt());
+        intent.putExtra(MILESTONES_COUNT, milestoneList.size());
+        intent.putParcelableArrayListExtra(MILESTONE_LIST, milestoneList);
+
+        startActivity(intent);
     }
 }
