@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,9 +25,15 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import retrofit2.Call;
@@ -39,6 +46,9 @@ public class create_task_fragment extends Fragment {
     TextInputLayout duedate_input_lay;
     MaterialButton createTaskBtn, addMilestonebtn;
     LinearLayout linearlist;
+
+    String formatedDate;
+    String formatedTime;
 
     List<MilestoneCollectionRequest> milestoneCollections = new ArrayList<>();
 
@@ -82,8 +92,8 @@ public class create_task_fragment extends Fragment {
     private void addMilestoneView() {
         final View view = getLayoutInflater().inflate(R.layout.add_milestone_dynamic_view, null, false);
 
-        TextInputEditText milestoneTitle = view.findViewById(R.id.milestone_title_edittext);
-        TextInputEditText milestoneDescription = view.findViewById(R.id.milestone_description_edittext);
+//        TextInputEditText milestoneTitle = view.findViewById(R.id.milestone_title_edittext);
+//        TextInputEditText milestoneDescription = view.findViewById(R.id.milestone_description_edittext);
         ImageView closeView = view.findViewById(R.id.closeImagebutton);
 
         closeView.setOnClickListener(new View.OnClickListener() {
@@ -103,8 +113,8 @@ public class create_task_fragment extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     private void editTextCalendarIconClickListener() {
 
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        calendar.clear();
+        final Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+//        calendar.clear();
 
         final long today = MaterialDatePicker.todayInUtcMilliseconds();
 
@@ -122,7 +132,8 @@ public class create_task_fragment extends Fragment {
                     if (motionEvent.getRawX() >= (duedateEdx.getRight() - duedateEdx.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
                         materialDatePicker.show(getFragmentManager(), "MATERIAL_DATE_PICKER");
-
+                        String time = String.valueOf(calendar.getTime());
+                        formatedTime = dateTimeFormater(time, 1);
                         return true;
                     }
                 }
@@ -134,8 +145,31 @@ public class create_task_fragment extends Fragment {
             @Override
             public void onPositiveButtonClick(Object selection) {
                 duedateEdx.setText(materialDatePicker.getHeaderText());
+                formatedDate = dateTimeFormater(materialDatePicker.getHeaderText(), 2);
+                Log.d("datec", formatedDate);
             }
         });
+    }
+
+    private String dateTimeFormater(String timedate, int i) {
+        Date date = null;
+        String format;
+
+        try {
+            if (i == 1) {
+                date = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US).parse(timedate);
+                format = new SimpleDateFormat("HH:mm:ss", Locale.US).format(date);
+                return format;
+            }
+            if (i == 2){
+                date = new SimpleDateFormat("MMM dd, yyyy", Locale.US).parse(timedate);
+                format = new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(date);
+                return format;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return timedate;
     }
 
     private void pushDataToServer() {
@@ -143,10 +177,11 @@ public class create_task_fragment extends Fragment {
         String description = descriptionEdx.getText().toString().trim();
         String assignby = assignbyEdx.getText().toString().trim();
         String assignto = assigntoEdx.getText().toString().trim();
+        String duedate = formatedDate+"T"+formatedTime+"Z";
 
         getMilestoneFromDynamicView();
 
-        AssignTaskRequest assignTaskRequest = new AssignTaskRequest(heading, description, assignby, assignto, milestoneCollections);
+        AssignTaskRequest assignTaskRequest = new AssignTaskRequest(heading, description, assignby, assignto, duedate, milestoneCollections);
 
         Call<AssignTaskResponse> taskResponseCall = APIclient.getInterface().getCreateTaskResponse(assignTaskRequest);
         taskResponseCall.enqueue(new Callback<AssignTaskResponse>() {

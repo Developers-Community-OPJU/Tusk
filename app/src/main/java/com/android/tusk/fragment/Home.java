@@ -35,6 +35,7 @@ public class Home extends Fragment implements NewTaskAdapter.taskDetailedView {
     public static final String MILESTONES_COUNT = "milestones";
     public static final String MILESTONE_LIST = "milestone_array_list";
     public static final String CREATED_DATE = "created_date";
+    public static final String DUE_DATE = "due_date";
 
     RecyclerView newTaskRecycler;
     List<Task> taskArrayList;
@@ -112,6 +113,7 @@ public class Home extends Fragment implements NewTaskAdapter.taskDetailedView {
         intent.putExtra(ASSIGNED_BY, task.getAssignedBy());
         intent.putExtra(DESCRIPTION, task.getDescription());
         intent.putExtra(CREATED_DATE, task.getCreatedAt());
+        intent.putExtra(DUE_DATE, task.getDueDate());
         intent.putExtra(MILESTONES_COUNT, milestoneList.size());
         intent.putParcelableArrayListExtra(MILESTONE_LIST, milestoneList);
 
