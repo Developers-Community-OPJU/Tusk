@@ -16,4 +16,5 @@
 
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="circle_progressbar_color">#C8C8C8</color>
 </resources>
