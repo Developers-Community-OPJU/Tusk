@@ -8,13 +8,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 import com.android.tusk.Admin.adapter.studentReportAdapter;
-import com.android.tusk.Admin.model.StudentsList;
+import com.android.tusk.Admin.model.User;
+import com.android.tusk.Admin.model.UserList;
 import com.android.tusk.R;
+import com.android.tusk.retrofit.APIclient;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class admin_student_task_report extends AppCompatActivity {
 
@@ -72,15 +79,29 @@ public class admin_student_task_report extends AppCompatActivity {
     }
 
     private void getStudentDataFromServer() {
-        List<StudentsList> studentsLists = new ArrayList<>();
-        studentsLists.add(new StudentsList("01UG18020029", "Roshan nahak"));
-        studentsLists.add(new StudentsList("01UG18020030", "Samridhi mohanty"));
-        studentsLists.add(new StudentsList("01UG18020021", "Roshan nahak"));
-        studentsLists.add(new StudentsList("01UG18020005", "Aman Vishwakarma"));
-        studentsLists.add(new StudentsList("01UG18020049", "sohel kumar"));
+        Call<UserList> userListCall = APIclient.getInterface().getUserList();
+        userListCall.enqueue(new Callback<UserList>() {
+            @Override
+            public void onResponse(Call<UserList> call, Response<UserList> response) {
+                if (response.isSuccessful()){
+                    UserList body = response.body();
+                    List<User> userList = new ArrayList<>();
 
-        studentReportAdapter adapter = new studentReportAdapter(this, studentsLists);
-        recyclerView.setAdapter(adapter);
+                    for (User user : body.getUser()){
+                        if (user.getUserRole().equals("Student")){
+                            userList.add(user);
+                        }
+                    }
+                    studentReportAdapter adapter = new studentReportAdapter(getApplicationContext(), userList);
+                    recyclerView.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserList> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "sorry request failed! try again.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initViews() {

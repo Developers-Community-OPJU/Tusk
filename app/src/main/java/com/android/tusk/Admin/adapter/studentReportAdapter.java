@@ -9,7 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.tusk.Admin.model.StudentsList;
+import com.android.tusk.Admin.model.User;
+import com.android.tusk.Admin.model.UserList;
 import com.android.tusk.R;
 
 import java.util.List;
@@ -17,9 +18,9 @@ import java.util.List;
 public class studentReportAdapter extends RecyclerView.Adapter<studentReportAdapter.studentReportViewholder> {
 
     Context context;
-    List<StudentsList> stringList;
+    List<User> stringList;
 
-    public studentReportAdapter(Context context, List<StudentsList> stringList){
+    public studentReportAdapter(Context context, List<User> stringList){
         this.context = context;
         this.stringList = stringList;
     }
@@ -34,10 +35,10 @@ public class studentReportAdapter extends RecyclerView.Adapter<studentReportAdap
 
     @Override
     public void onBindViewHolder(@NonNull studentReportViewholder holder, int position) {
-        StudentsList studentsList = stringList.get(position);
+        User studentsList = stringList.get(position);
 
-        holder.rollno.setText(studentsList.getRollno());
-        holder.name.setText(studentsList.getName());
+        holder.rollno.setText(studentsList.getRID());
+        holder.name.setText(studentsList.getFirstName()+" "+studentsList.getLastName());
     }
 
     @Override

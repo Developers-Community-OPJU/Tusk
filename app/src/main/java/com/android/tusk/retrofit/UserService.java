@@ -1,5 +1,6 @@
 package com.android.tusk.retrofit;
 
+import com.android.tusk.Admin.model.UserList;
 import com.android.tusk.model.AllTask;
 import com.android.tusk.Admin.model.AssignTaskRequest;
 import com.android.tusk.Admin.model.AssignTaskResponse;
@@ -40,8 +41,12 @@ public interface UserService {
     @DELETE("task/pull/{id}")
     Call<Void> deleteTask(@Path("id") String id);
 
-    //passing headers for decode token
+    //passing header for decode token
     @GET("auth/getCurrentUser")
     Call<HeaderResponse> getDecodedUserToken(@Header("x-auth-token") String token);
+
+    //all user list
+    @GET("user/search")
+    Call<UserList> getUserList();
 
 }
