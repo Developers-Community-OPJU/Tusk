@@ -21,6 +21,7 @@
             android:background="@drawable/circuler_profile_img_bg"
             android:layout_marginBottom="20dp">
             <TextView
+                android:id="@+id/student_namechar_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -32,6 +33,7 @@
                 android:fontFamily="@font/roboto_bold"/>
         </RelativeLayout>
         <TextView
+            android:id="@+id/student_header_name_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Roshan Nahak"
@@ -44,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp">
             <TextView
-                android:id="@+id/header_course_textview"
+                android:id="@+id/student_header_course_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="B.Tech"
@@ -52,7 +54,7 @@
                 android:textColor="@color/ui_text_black"
                 android:fontFamily="@font/roboto"/>
             <TextView
-                android:id="@+id/header_branch_textview"
+                android:id="@+id/student_header_branch_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="cse"
@@ -60,17 +62,17 @@
                 android:textSize="14sp"
                 android:textColor="@color/ui_text_black"
                 android:fontFamily="@font/roboto"
-                android:layout_toEndOf="@id/header_course_textview"
+                android:layout_toEndOf="@id/student_header_course_textview"
                 android:layout_marginStart="5dp"/>
             <TextView
-                android:id="@+id/header_semester_textview"
+                android:id="@+id/student_header_semester_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5th Semester"
                 android:textSize="14sp"
                 android:textColor="@color/ui_text_black"
                 android:fontFamily="@font/roboto"
-                android:layout_toEndOf="@id/header_branch_textview"
+                android:layout_toEndOf="@id/student_header_branch_textview"
                 android:layout_marginStart="5dp"/>
         </RelativeLayout>
     </LinearLayout>
@@ -93,8 +95,8 @@
 
             <ImageView
                 android:id="@+id/icon1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_dashboard_icon"
                 android:layout_centerVertical="true"/>
             <TextView
@@ -118,8 +120,8 @@
 
             <ImageView
                 android:id="@+id/icon2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_task_icon"
                 android:layout_centerVertical="true"/>
             <TextView
@@ -143,8 +145,8 @@
 
             <ImageView
                 android:id="@+id/icon3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_library_icon"
                 android:layout_centerVertical="true"/>
             <TextView
@@ -168,8 +170,8 @@
 
             <ImageView
                 android:id="@+id/icon4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_report_icon"
                 android:layout_centerVertical="true"/>
             <TextView
@@ -193,8 +195,8 @@
 
             <ImageView
                 android:id="@+id/icon5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_profile_icon"
                 android:layout_centerVertical="true"/>
             <TextView
@@ -219,8 +221,8 @@
 
             <ImageView
                 android:id="@+id/icon6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_logout_icon"
                 android:layout_centerVertical="true"/>
             <TextView

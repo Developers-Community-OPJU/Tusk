@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.tusk.Admin.admin_dashboard;
+import com.android.tusk.model.Decoded;
+import com.android.tusk.model.HeaderResponse;
 import com.android.tusk.model.LoginRequest;
 import com.android.tusk.model.LoginResponse;
 import com.android.tusk.retrofit.APIclient;
@@ -67,37 +69,68 @@ public class Login_screen extends AppCompatActivity {
 
         LoginRequest loginRequest = new LoginRequest(id, password);
 
-        //admin login check
-        if (id.equals("a") && password.equals("b")) {
-            startActivity(new Intent(Login_screen.this, admin_dashboard.class));
-        } else {
-            Call<LoginResponse> loginResponseCall = APIclient.getInterface().getLoginResponse(loginRequest);
-            loginResponseCall.enqueue(new Callback<LoginResponse>() {
-                @Override
-                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    if (response.isSuccessful()) {
-                        LoginResponse loginResponse = response.body();
-                        ToastMassage(loginResponse.getMsg());
-                        progressDialog.dismissLoader();
+        Call<LoginResponse> loginResponseCall = APIclient.getInterface().getLoginResponse(loginRequest);
+        loginResponseCall.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.isSuccessful()) {
+                    final LoginResponse loginResponse = response.body();
 
-                        if (loginResponse.getAllowed()) {
+                    if (loginResponse.getAllowed() && loginResponse.getToken() != null) {
 
-                            sessionManager.saveAuthToken(loginResponse.getToken());
+                        sessionManager.saveAuthToken(loginResponse.getToken());
 
-                            Intent intent = new Intent(Login_screen.this, Dashboard.class);
-                            startActivity(intent);
-                            finish();
-                        }
+                        Call<HeaderResponse> headerResponseCall = APIclient.getInterface().getDecodedUserToken(loginResponse.getToken());
+                        headerResponseCall.enqueue(new Callback<HeaderResponse>() {
+                            @Override
+                            public void onResponse(Call<HeaderResponse> call, Response<HeaderResponse> response) {
+                                if (response.isSuccessful()) {
+                                    HeaderResponse headerResponse = response.body();
+                                    Decoded decoded = headerResponse.getDecoded();
+                                    if (headerResponse.getAllowed()) {
+
+                                        sessionManager.saveUserInfo(
+                                                decoded.getId(),
+                                                decoded.getFirstName(),
+                                                decoded.getLastName(),
+                                                decoded.getBranch(),
+                                                decoded.getRID(),
+                                                decoded.getUserRole()
+                                        );
+
+                                        if (decoded.getUserRole().equals("Student")) {
+                                            ToastMassage(loginResponse.getMsg());
+                                            progressDialog.dismissLoader();
+                                            Intent intent = new Intent(Login_screen.this, Dashboard.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else if (decoded.getUserRole().equals("Admin")) {
+                                            ToastMassage(loginResponse.getMsg());
+                                            progressDialog.dismissLoader();
+                                            Intent intent = new Intent(Login_screen.this, admin_dashboard.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<HeaderResponse> call, Throwable t) {
+                                ToastMassage("auth error please try again");
+                                progressDialog.dismissLoader();
+                            }
+                        });
                     }
                 }
+            }
 
-                @Override
-                public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    ToastMassage("failed");
-                    progressDialog.dismissLoader();
-                }
-            });
-        }
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                ToastMassage("failed");
+                progressDialog.dismissLoader();
+            }
+        });
     }
 
     private void ToastMassage(String msg) {

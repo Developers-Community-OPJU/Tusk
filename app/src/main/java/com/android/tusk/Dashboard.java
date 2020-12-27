@@ -9,10 +9,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.tusk.fragment.Home;
@@ -25,20 +27,37 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
     RelativeLayout home, logout;
     SessionManager sessionManager;
 
+    //drawer header
+    TextView nametxt, branchtxt, profileChartxt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
 
         initializationView();
-
         sessionManager = new SessionManager(this);
         sessionManager.CreatePreferences();
+
+        setDrawerHeaderInfo();
 
         setDrawer();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new Home()).commit();
 
+    }
+
+    private void setDrawerHeaderInfo() {
+        String firstname = sessionManager.getFirstName();
+        String lastname = sessionManager.getLastName();
+        String branch = sessionManager.getBRANCH();
+
+        char firstIndexChar = firstname.charAt(0);
+        String s = String.valueOf(firstIndexChar);
+
+        nametxt.setText(firstname+" "+lastname);
+        branchtxt.setText(branch);
+        profileChartxt.setText(s);
     }
 
     @Override
@@ -75,6 +94,11 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         home.setOnClickListener(this);
         logout = this.findViewById(R.id.logout_action);
         logout.setOnClickListener(this);
+
+        //drawer header
+        nametxt = findViewById(R.id.student_header_name_textview);
+        branchtxt = findViewById(R.id.student_header_branch_textview);
+        profileChartxt = findViewById(R.id.student_namechar_textview);
     }
 
     @Override

@@ -21,6 +21,7 @@
             android:background="@drawable/circuler_profile_img_bg"
             android:layout_marginBottom="20dp">
             <TextView
+                android:id="@+id/admin_profileIndexchar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -32,6 +33,7 @@
                 android:fontFamily="@font/roboto_bold"/>
         </RelativeLayout>
         <TextView
+            android:id="@+id/admin_header_name_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Roshan Nahak"
@@ -52,7 +54,7 @@
                 android:textColor="@color/ui_text_black"
                 android:fontFamily="@font/roboto"/>
             <TextView
-                android:id="@+id/header_branch_textview"
+                android:id="@+id/admin_header_branch_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="cse"
@@ -63,14 +65,14 @@
                 android:layout_toEndOf="@id/header_course_textview"
                 android:layout_marginStart="5dp"/>
             <TextView
-                android:id="@+id/header_semester_textview"
+                android:id="@+id/admin_header_semester_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5th Semester"
                 android:textSize="14sp"
                 android:textColor="@color/ui_text_black"
                 android:fontFamily="@font/roboto"
-                android:layout_toEndOf="@id/header_branch_textview"
+                android:layout_toEndOf="@id/admin_header_branch_textview"
                 android:layout_marginStart="5dp"/>
         </RelativeLayout>
     </LinearLayout>
@@ -92,8 +94,8 @@
 
             <ImageView
                 android:id="@+id/icon1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_dashboard_icon"
                 android:layout_centerVertical="true"/>
             <TextView
@@ -117,8 +119,8 @@
 
             <ImageView
                 android:id="@+id/icon2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_task_icon"
                 android:layout_centerVertical="true"/>
             <TextView
@@ -142,8 +144,8 @@
 
             <ImageView
                 android:id="@+id/icon3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_library_icon"
                 android:layout_centerVertical="true"/>
             <TextView
@@ -168,8 +170,8 @@
 
             <ImageView
                 android:id="@+id/icon4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_report_icon"
                 android:layout_centerVertical="true"/>
             <TextView
@@ -193,8 +195,8 @@
 
             <ImageView
                 android:id="@+id/icon5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_profile_icon"
                 android:layout_centerVertical="true"/>
             <TextView
@@ -213,13 +215,14 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/admin_logout_drawer_action"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
             <ImageView
                 android:id="@+id/icon6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_logout_icon"
                 android:layout_centerVertical="true"/>
             <TextView
