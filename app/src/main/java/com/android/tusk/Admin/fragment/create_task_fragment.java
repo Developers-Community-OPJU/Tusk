@@ -158,7 +158,7 @@ public class create_task_fragment extends Fragment {
         try {
             if (i == 1) {
                 date = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US).parse(timedate);
-                format = new SimpleDateFormat("HH:mm:ss", Locale.US).format(date);
+                format = new SimpleDateFormat("HH:mm:ss.SSS", Locale.US).format(date);
                 return format;
             }
             if (i == 2){

@@ -43,6 +43,7 @@ import retrofit2.Response;
 import static com.android.tusk.fragment.Home.ASSIGNED_BY;
 import static com.android.tusk.fragment.Home.CREATED_DATE;
 import static com.android.tusk.fragment.Home.DESCRIPTION;
+import static com.android.tusk.fragment.Home.DUE_DATE;
 import static com.android.tusk.fragment.Home.HEADING;
 import static com.android.tusk.fragment.Home.MILESTONES_COUNT;
 import static com.android.tusk.fragment.Home.MILESTONE_LIST;
@@ -53,7 +54,7 @@ public class SearchTask extends AppCompatActivity implements SearchAllTaskAdapte
     TextInputEditText inputEditText1;
     RecyclerView recyclerView;
     List<Task> taskArrayList;
-    List<Task> taskList;
+    List<Task> filterTaskList;
     SearchAllTaskAdapter taskAdapter;
 
     @Override
@@ -98,16 +99,16 @@ public class SearchTask extends AppCompatActivity implements SearchAllTaskAdapte
     }
 
     private void filter(String s) {
-        taskList = new ArrayList<>();
+        filterTaskList = new ArrayList<>();
 
         for (Task task : taskArrayList){
             String date = dateFormate(task.getCreatedAt(), 1);
             if (task.getAssignedBy().toLowerCase().contains(s.toLowerCase()) || date.contains(s)){
-                taskList.add(task);
+                filterTaskList.add(task);
             }
         }
 
-        taskAdapter.filteredList(taskList);
+        taskAdapter.filteredList(filterTaskList);
     }
 
     private String dateFormate(String createdAt, int i) {
@@ -198,7 +199,7 @@ public class SearchTask extends AppCompatActivity implements SearchAllTaskAdapte
         if (TextUtils.isEmpty(searchtxt)) {
             task = taskArrayList.get(position);
         }else {
-            task = taskList.get(position);
+            task = filterTaskList.get(position);
         }
         ArrayList<Milestone> milestoneList = new ArrayList<>();
 
@@ -213,6 +214,7 @@ public class SearchTask extends AppCompatActivity implements SearchAllTaskAdapte
         intent.putExtra(ASSIGNED_BY, task.getAssignedBy());
         intent.putExtra(DESCRIPTION, task.getDescription());
         intent.putExtra(CREATED_DATE, task.getCreatedAt());
+        intent.putExtra(DUE_DATE, task.getDueDate());
         intent.putExtra(MILESTONES_COUNT, milestoneList.size());
         intent.putParcelableArrayListExtra(MILESTONE_LIST, milestoneList);
 
