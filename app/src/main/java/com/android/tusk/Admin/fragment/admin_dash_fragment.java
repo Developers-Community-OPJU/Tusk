@@ -1,5 +1,6 @@
 package com.android.tusk.Admin.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.android.tusk.Admin.adapter.CreatedTaskAdapter;
+import com.android.tusk.Admin.create_task;
 import com.android.tusk.R;
 import com.android.tusk.adapter.NewTaskAdapter;
 import com.android.tusk.model.AllTask;
@@ -58,7 +60,8 @@ public class admin_dash_fragment extends Fragment implements CreatedTaskAdapter.
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().beginTransaction().replace(R.id.admin_frame_container, new create_task_fragment()).addToBackStack("dashboard").commit();
+                Intent intent = new Intent(getActivity(), create_task.class);
+                startActivity(intent);
             }
         });
 

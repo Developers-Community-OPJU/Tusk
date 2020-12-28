@@ -1,23 +1,23 @@
-package com.android.tusk.Admin.fragment;
+package com.android.tusk.Admin;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.android.tusk.Admin.model.MilestoneCollectionRequest;
-import com.android.tusk.R;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.android.tusk.Admin.model.AssignTaskRequest;
 import com.android.tusk.Admin.model.AssignTaskResponse;
+import com.android.tusk.Admin.model.MilestoneCollectionRequest;
+import com.android.tusk.R;
 import com.android.tusk.retrofit.APIclient;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -25,10 +25,8 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,35 +38,31 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class create_task_fragment extends Fragment {
+public class create_task extends AppCompatActivity {
 
     TextInputEditText headingEdx, descriptionEdx, assignbyEdx, assigntoEdx, duedateEdx;
     TextInputLayout duedate_input_lay;
-    MaterialButton createTaskBtn, addMilestonebtn;
+    MaterialButton nextBtn, addMilestonebtn;
     LinearLayout linearlist;
+
+    Toolbar toolbar;
 
     String formatedDate;
     String formatedTime;
 
     List<MilestoneCollectionRequest> milestoneCollections = new ArrayList<>();
 
-
-    public create_task_fragment() {
-        // Required empty public constructor
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.admin_create_task_activity);
 
-    }
+        initializeView();
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_create_task_fragment, container, false);
-
-        initializeView(view);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setCustomView(R.layout.admin_actionbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
 
         editTextCalendarIconClickListener();
 
@@ -79,14 +73,14 @@ public class create_task_fragment extends Fragment {
             }
         });
 
-        createTaskBtn.setOnClickListener(new View.OnClickListener() {
+        nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pushDataToServer();
+//                pushDataToServer();
+                startActivity(new Intent(getApplicationContext(), assigning_task.class));
             }
         });
 
-        return view;
     }
 
     private void addMilestoneView() {
@@ -131,7 +125,7 @@ public class create_task_fragment extends Fragment {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     if (motionEvent.getRawX() >= (duedateEdx.getRight() - duedateEdx.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
-                        materialDatePicker.show(getFragmentManager(), "MATERIAL_DATE_PICKER");
+                        materialDatePicker.show(getSupportFragmentManager(), "MATERIAL_DATE_PICKER");
                         String time = String.valueOf(calendar.getTime());
                         formatedTime = dateTimeFormater(time, 1);
                         return true;
@@ -225,22 +219,24 @@ public class create_task_fragment extends Fragment {
         return result;
     }
 
-    private void initializeView(View view) {
-        headingEdx = view.findViewById(R.id.heading_textInputEditText);
-        descriptionEdx = view.findViewById(R.id.description_textInputEditText);
-        assignbyEdx = view.findViewById(R.id.assignedby_textInputEditText);
-        assigntoEdx = view.findViewById(R.id.assignedto_textInputEditText);
-        duedateEdx = view.findViewById(R.id.duedate_textInputEditText);
+    private void initializeView() {
+        headingEdx = findViewById(R.id.heading_textInputEditText);
+        descriptionEdx = findViewById(R.id.description_textInputEditText);
+        assignbyEdx = findViewById(R.id.assignedby_textInputEditText);
+        assigntoEdx = findViewById(R.id.assignedto_textInputEditText);
+        duedateEdx = findViewById(R.id.duedate_textInputEditText);
 
-        duedate_input_lay = view.findViewById(R.id.duedate_textInputLayout);
+        duedate_input_lay = findViewById(R.id.duedate_textInputLayout);
 
-        createTaskBtn = view.findViewById(R.id.create_task_button);
-        addMilestonebtn = view.findViewById(R.id.addMilestoneButton);
+        nextBtn = findViewById(R.id.next_button);
+        addMilestonebtn = findViewById(R.id.addMilestoneButton);
 
-        linearlist = view.findViewById(R.id.linearlist);
+        linearlist = findViewById(R.id.linearlist);
+
+        toolbar = findViewById(R.id.admin_dashboard_toolbar);
     }
 
     private void ToastMassage(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }
