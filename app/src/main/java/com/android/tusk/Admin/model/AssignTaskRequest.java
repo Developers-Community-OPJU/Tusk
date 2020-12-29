@@ -3,10 +3,11 @@ package com.android.tusk.Admin.model;
 import java.util.List;
 
 public class AssignTaskRequest {
-    private String heading, description, assignedBy, assignedTo, dueDate;
+    private String heading, description, assignedBy, dueDate;
     private List<MilestoneCollectionRequest> milestones;
+    private List<String> assignedTo;
 
-    public AssignTaskRequest(String heading, String description, String assignedBy, String assignedTo, String dueDate, List<MilestoneCollectionRequest> milestones) {
+    public AssignTaskRequest(String heading, String description, String assignedBy, List<String> assignedTo, String dueDate, List<MilestoneCollectionRequest> milestones) {
         this.heading = heading;
         this.description = description;
         this.assignedBy = assignedBy;
@@ -27,7 +28,7 @@ public class AssignTaskRequest {
         return assignedBy;
     }
 
-    public String getAssignedTo() {
+    public List<String> getAssignedTo() {
         return assignedTo;
     }
 

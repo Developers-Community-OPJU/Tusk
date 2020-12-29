@@ -5,16 +5,23 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.android.tusk.Admin.adapter.assigningTaskAdapter;
+import com.android.tusk.Admin.model.AssignTaskRequest;
+import com.android.tusk.Admin.model.AssignTaskResponse;
+import com.android.tusk.Admin.model.MilestoneCollectionRequest;
 import com.android.tusk.Admin.model.User;
 import com.android.tusk.Admin.model.UserList;
 import com.android.tusk.R;
 import com.android.tusk.retrofit.APIclient;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,17 +30,28 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.android.tusk.Admin.create_task.TASK_ASSIGN_BY;
+import static com.android.tusk.Admin.create_task.TASK_DESCRIPTION;
+import static com.android.tusk.Admin.create_task.TASK_DUE_DATE;
+import static com.android.tusk.Admin.create_task.TASK_HEADING;
+import static com.android.tusk.Admin.create_task.TASK_MILESTONES;
+
 public class assigning_task extends AppCompatActivity {
 
     RecyclerView recyclerView;
     Toolbar toolbar;
     AutoCompleteTextView branchatxt, semesteratxt;
+    MaterialButton createTaskbtn;
+    UserList userdata;
 
     ArrayList<String> branchArrayList;
     ArrayAdapter<String> branchArrayAdapter;
 
     ArrayList<String> semArrayList;
     ArrayAdapter<String> semArrayAdapter;
+
+    ArrayList<MilestoneCollectionRequest> milestoneArrayList;
+    ArrayList<String> userIdList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +68,61 @@ public class assigning_task extends AppCompatActivity {
 
         getDataFromServer();
 
+        createTaskbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setDataToServer();
+            }
+        });
+    }
+
+    private void setDataToServer() {
+        milestoneArrayList = new ArrayList<>();
+        Intent intent = getIntent();
+        String heading = intent.getStringExtra(TASK_HEADING);
+        String description = intent.getStringExtra(TASK_DESCRIPTION);
+        String assign_by = intent.getStringExtra(TASK_ASSIGN_BY);
+        String due_date = intent.getStringExtra(TASK_DUE_DATE);
+        milestoneArrayList = intent.getParcelableArrayListExtra(TASK_MILESTONES);
+
+        getAssignedStudentList();
+
+//        Log.d("response", String.valueOf(userIdList));
+
+        AssignTaskRequest assignTaskRequest = new AssignTaskRequest(heading, description, assign_by, userIdList, due_date, milestoneArrayList);
+
+        Call<AssignTaskResponse> taskResponseCall = APIclient.getInterface().getCreateTaskResponse(assignTaskRequest);
+        taskResponseCall.enqueue(new Callback<AssignTaskResponse>() {
+            @Override
+            public void onResponse(Call<AssignTaskResponse> call, Response<AssignTaskResponse> response) {
+                if (response.isSuccessful()) {
+                    AssignTaskResponse taskResponse = response.body();
+                    ToastMassage(taskResponse.getMsg() + "");
+                    Intent intent = new Intent(getApplicationContext(), admin_dashboard.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AssignTaskResponse> call, Throwable t) {
+                ToastMassage("failed, try again!");
+            }
+        });
+    }
+
+    private void ToastMassage(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void getAssignedStudentList() {
+        userIdList = new ArrayList<>();
+        for (User user : userdata.getUser()){
+            if (user.getSelected()){
+                userIdList.add(user.getId());
+            }
+        }
     }
 
     private void getDataFromServer() {
@@ -58,8 +131,10 @@ public class assigning_task extends AppCompatActivity {
             @Override
             public void onResponse(Call<UserList> call, Response<UserList> response) {
                 if (response.isSuccessful()){
-                    UserList userdata = response.body();
+                    userdata = response.body();
                     List<User> userList = new ArrayList<>();
+
+                    User user1 = new User();
 
                     for (User user : userdata.getUser()){
                         if (user.getUserRole().equals("Student")){
@@ -117,5 +192,7 @@ public class assigning_task extends AppCompatActivity {
 
         branchatxt = findViewById(R.id.branch_search_autocomplete_textview);
         semesteratxt = findViewById(R.id.semester_search_autocomplete_textview);
+
+        createTaskbtn = findViewById(R.id.create_task_button);
     }
 }

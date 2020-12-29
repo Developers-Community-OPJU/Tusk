@@ -35,6 +35,20 @@ public class User {
     @Expose
     private Integer v;
 
+    private Boolean selected;
+
+    public User(){
+        this.selected = false;
+    }
+
+    public Boolean getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Boolean selected) {
+        this.selected = selected;
+    }
+
     public String getUserRole() {
         return userRole;
     }

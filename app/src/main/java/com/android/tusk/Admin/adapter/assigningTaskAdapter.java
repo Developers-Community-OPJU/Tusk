@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,10 +39,12 @@ public class assigningTaskAdapter extends RecyclerView.Adapter<assigningTaskAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull assignTaskViewHolder holder, int position) {
-        User user = userList.get(position);
+    public void onBindViewHolder(@NonNull assignTaskViewHolder holder, final int position) {
+        final User user = userList.get(position);
 
         holder.name.setText(user.getFirstName()+" "+user.getLastName());
+
+        holder.checkBox.setChecked(user.getSelected());
     }
 
     @Override
@@ -51,11 +55,24 @@ public class assigningTaskAdapter extends RecyclerView.Adapter<assigningTaskAdap
     public class assignTaskViewHolder extends RecyclerView.ViewHolder{
 
         TextView name;
+        CheckBox checkBox;
+        LinearLayout linearLayout;
 
         public assignTaskViewHolder(@NonNull View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.assign_student_name_textview);
+            checkBox = itemView.findViewById(R.id.student_checkbox);
+            linearLayout = itemView.findViewById(R.id.linearlayout);
+
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    User user = userList.get(getAdapterPosition());
+                    user.setSelected(!user.getSelected());
+                    notifyItemChanged(getAdapterPosition());
+                }
+            });
 
         }
     }

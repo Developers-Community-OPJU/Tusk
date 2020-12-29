@@ -28,9 +28,11 @@
             android:layout_marginStart="10dp"
             android:ellipsize="end"/>
         <CheckBox
+            android:id="@+id/student_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"/>
+            android:padding="5dp"
+            android:clickable="false" />
     </LinearLayout>
 
     <View

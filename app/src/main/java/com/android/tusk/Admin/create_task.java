@@ -40,7 +40,13 @@ import retrofit2.Response;
 
 public class create_task extends AppCompatActivity {
 
-    TextInputEditText headingEdx, descriptionEdx, assignbyEdx, assigntoEdx, duedateEdx;
+    public static final String TASK_HEADING = "heading";
+    public static final String TASK_DESCRIPTION = "description";
+    public static final String TASK_ASSIGN_BY = "assign_by";
+    public static final String TASK_DUE_DATE = "due_date";
+    public static final String TASK_MILESTONES = "milestones";
+
+    TextInputEditText headingEdx, descriptionEdx, assignbyEdx, duedateEdx;
     TextInputLayout duedate_input_lay;
     MaterialButton nextBtn, addMilestonebtn;
     LinearLayout linearlist;
@@ -50,7 +56,7 @@ public class create_task extends AppCompatActivity {
     String formatedDate;
     String formatedTime;
 
-    List<MilestoneCollectionRequest> milestoneCollections = new ArrayList<>();
+    ArrayList<MilestoneCollectionRequest> milestoneCollections = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,8 +82,7 @@ public class create_task extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                pushDataToServer();
-                startActivity(new Intent(getApplicationContext(), assigning_task.class));
+                sendDataToActivity();
             }
         });
 
@@ -166,32 +171,22 @@ public class create_task extends AppCompatActivity {
         return timedate;
     }
 
-    private void pushDataToServer() {
+    private void sendDataToActivity() {
         String heading = headingEdx.getText().toString().trim();
         String description = descriptionEdx.getText().toString().trim();
         String assignby = assignbyEdx.getText().toString().trim();
-        String assignto = assigntoEdx.getText().toString().trim();
         String duedate = formatedDate+"T"+formatedTime+"Z";
 
         getMilestoneFromDynamicView();
 
-        AssignTaskRequest assignTaskRequest = new AssignTaskRequest(heading, description, assignby, assignto, duedate, milestoneCollections);
+        Intent intent = new Intent(create_task.this, assigning_task.class);
+        intent.putExtra(TASK_HEADING, heading);
+        intent.putExtra(TASK_DESCRIPTION, description);
+        intent.putExtra(TASK_ASSIGN_BY, assignby);
+        intent.putExtra(TASK_DUE_DATE, duedate);
+        intent.putParcelableArrayListExtra(TASK_MILESTONES, milestoneCollections);
 
-        Call<AssignTaskResponse> taskResponseCall = APIclient.getInterface().getCreateTaskResponse(assignTaskRequest);
-        taskResponseCall.enqueue(new Callback<AssignTaskResponse>() {
-            @Override
-            public void onResponse(Call<AssignTaskResponse> call, Response<AssignTaskResponse> response) {
-                if (response.isSuccessful()) {
-                    AssignTaskResponse taskResponse = response.body();
-                    ToastMassage(taskResponse.getMsg() + "");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AssignTaskResponse> call, Throwable t) {
-                ToastMassage("failed");
-            }
-        });
+        startActivity(intent);
     }
 
     private void getMilestoneFromDynamicView() {
@@ -223,7 +218,6 @@ public class create_task extends AppCompatActivity {
         headingEdx = findViewById(R.id.heading_textInputEditText);
         descriptionEdx = findViewById(R.id.description_textInputEditText);
         assignbyEdx = findViewById(R.id.assignedby_textInputEditText);
-        assigntoEdx = findViewById(R.id.assignedto_textInputEditText);
         duedateEdx = findViewById(R.id.duedate_textInputEditText);
 
         duedate_input_lay = findViewById(R.id.duedate_textInputLayout);
