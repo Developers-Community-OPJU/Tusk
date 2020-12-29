@@ -28,12 +28,23 @@ public class Task {
     @SerializedName("milestones")
     @Expose
     private List<Milestone> milestones = null;
+    @SerializedName("dueDate")
+    @Expose
+    private String dueDate;
     @SerializedName("createdAt")
     @Expose
     private String createdAt;
     @SerializedName("__v")
     @Expose
     private Integer v;
+
+    public String getDueDate(){
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate){
+        this.dueDate = dueDate;
+    }
 
     public String getStatus() {
         return status;

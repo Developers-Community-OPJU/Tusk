@@ -1,8 +1,10 @@
 package com.android.tusk.retrofit;
 
+import com.android.tusk.Admin.model.UserList;
 import com.android.tusk.model.AllTask;
-import com.android.tusk.model.AssignTaskRequest;
-import com.android.tusk.model.AssignTaskResponse;
+import com.android.tusk.Admin.model.AssignTaskRequest;
+import com.android.tusk.Admin.model.AssignTaskResponse;
+import com.android.tusk.model.HeaderResponse;
 import com.android.tusk.model.LoginRequest;
 import com.android.tusk.model.LoginResponse;
 import com.android.tusk.model.RegisterRequest;
@@ -12,6 +14,8 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -36,5 +40,13 @@ public interface UserService {
     //delete task
     @DELETE("task/pull/{id}")
     Call<Void> deleteTask(@Path("id") String id);
+
+    //passing header for decode token
+    @GET("auth/getCurrentUser")
+    Call<HeaderResponse> getDecodedUserToken(@Header("x-auth-token") String token);
+
+    //all user list
+    @GET("user/search")
+    Call<UserList> getUserList();
 
 }

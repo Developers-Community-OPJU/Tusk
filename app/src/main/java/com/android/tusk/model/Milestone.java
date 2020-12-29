@@ -1,11 +1,14 @@
 
 package com.android.tusk.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Milestone {
+public class Milestone implements Parcelable {
 
     @SerializedName("issue")
     @Expose
@@ -22,6 +25,20 @@ public class Milestone {
     @SerializedName("description")
     @Expose
     private String description;
+
+    private Boolean isExpanded;
+
+    public Milestone() {
+        this.isExpanded = false;
+    }
+
+    public Boolean getIsExpanded(){
+        return isExpanded;
+    }
+
+    public void setIsExpanded(Boolean isExpanded){
+        this.isExpanded = isExpanded;
+    }
 
     public Boolean getIssue() {
         return issue;
@@ -63,4 +80,41 @@ public class Milestone {
         this.description = description;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeByte((byte) (issue == null ? 0 : issue ? 1 : 2));
+        parcel.writeStringList(issues);
+        parcel.writeString(id);
+        parcel.writeString(title);
+        parcel.writeString(description);
+        parcel.writeByte((byte) (isExpanded == null ? 0 : isExpanded ? 1 : 2));
+    }
+
+    protected Milestone(Parcel in) {
+        byte tmpIssue = in.readByte();
+        issue = tmpIssue == 0 ? null : tmpIssue == 1;
+        issues = in.createStringArrayList();
+        id = in.readString();
+        title = in.readString();
+        description = in.readString();
+        byte tmpIsExpanded = in.readByte();
+        isExpanded = tmpIsExpanded == 0 ? null : tmpIsExpanded == 1;
+    }
+
+    public static final Creator<Milestone> CREATOR = new Creator<Milestone>() {
+        @Override
+        public Milestone createFromParcel(Parcel in) {
+            return new Milestone(in);
+        }
+
+        @Override
+        public Milestone[] newArray(int size) {
+            return new Milestone[size];
+        }
+    };
 }

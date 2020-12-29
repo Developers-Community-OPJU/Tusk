@@ -1,5 +1,5 @@
 
-package com.android.tusk.model;
+package com.android.tusk.Admin.model;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
@@ -28,6 +28,9 @@ public class AssignTask {
     @SerializedName("milestones")
     @Expose
     private List<Object> milestones = null;
+    @SerializedName("dueDate")
+    @Expose
+    private String dueDate;
     @SerializedName("__v")
     @Expose
     private Integer v;
@@ -86,6 +89,14 @@ public class AssignTask {
 
     public void setMilestones(List<Object> milestones) {
         this.milestones = milestones;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
     }
 
     public Integer getV() {

@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.8"
                 android:fontFamily="@font/roboto"
-                android:text="Milestones"
+                android:text="Milestone"
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
                 android:textColor="@color/ui_text_black"

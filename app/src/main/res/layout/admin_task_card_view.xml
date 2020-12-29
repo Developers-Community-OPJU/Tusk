@@ -92,13 +92,13 @@
                             android:id="@+id/admin_edit_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="View"
+                            android:text="edit"
                             android:textAllCaps="true"
                             android:textSize="12sp"
                             android:paddingEnd="12dp"
                             android:paddingStart="1dp"
                             android:fontFamily="@font/roboto_medium"
-                            android:textColor="@color/card_action_button"/>
+                            android:textColor="@color/ui_purple"/>
                         <TextView
                             android:id="@+id/admin_delete_button"
                             android:layout_width="wrap_content"
@@ -109,7 +109,7 @@
                             android:textAllCaps="true"
                             android:textSize="12sp"
                             android:fontFamily="@font/roboto_medium"
-                            android:textColor="@color/card_action_button"/>
+                            android:textColor="@color/ui_purple"/>
 
                     </LinearLayout>
                 </LinearLayout>

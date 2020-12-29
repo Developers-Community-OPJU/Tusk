@@ -3,65 +3,240 @@
     android:layout_width="300dp"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    android:background="@color/white"
     android:layout_gravity="start">
 
     <LinearLayout
+        android:id="@+id/admin_drawer_header"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="180dp"
         android:orientation="vertical"
-        android:background="@color/ui_black"/>
+        android:gravity="bottom"
+        android:paddingBottom="15dp">
+        <RelativeLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/circuler_profile_img_bg"
+            android:layout_marginBottom="20dp">
+            <TextView
+                android:id="@+id/admin_profileIndexchar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textAllCaps="true"
+                android:textColor="@color/ui_text_black"
+                android:text="r"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:fontFamily="@font/roboto_bold"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/admin_header_name_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Roshan Nahak"
+            android:textAlignment="textStart"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="20sp"
+            android:textColor="#DE000000"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp">
+            <TextView
+                android:id="@+id/header_course_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B.Tech"
+                android:textSize="14sp"
+                android:textColor="@color/ui_text_black"
+                android:fontFamily="@font/roboto"/>
+            <TextView
+                android:id="@+id/admin_header_branch_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="cse"
+                android:textAllCaps="true"
+                android:textSize="14sp"
+                android:textColor="@color/ui_text_black"
+                android:fontFamily="@font/roboto"
+                android:layout_toEndOf="@id/header_course_textview"
+                android:layout_marginStart="5dp"/>
+            <TextView
+                android:id="@+id/admin_header_semester_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5th Semester"
+                android:textSize="14sp"
+                android:textColor="@color/ui_text_black"
+                android:fontFamily="@font/roboto"
+                android:layout_toEndOf="@id/admin_header_branch_textview"
+                android:layout_marginStart="5dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#D3D3D3"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/ui_white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingStart="10dp"
+        android:layout_marginTop="5dp">
 
         <RelativeLayout
+            android:id="@+id/dashboard_drawer_action"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
+            <ImageView
+                android:id="@+id/icon1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_dashboard_icon"
+                android:layout_centerVertical="true"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Recent Task"
+                android:text="dashboard"
                 android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textSize="18sp"
+                android:textAllCaps="true"
+                android:textSize="14sp"
                 android:fontFamily="@font/roboto_medium"
-                android:textColor="@color/ui_black"
-                android:layout_centerInParent="true"/>
-
-            <View
-                android:layout_width="250dp"
-                android:layout_height="2dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:background="#D3D3D3"/>
+                android:textColor="@color/ui_text_black"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/icon1"
+                android:layout_marginStart="25dp"/>
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/admin_logout_action"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
+            <ImageView
+                android:id="@+id/icon2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_task_icon"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Task"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/ui_text_black"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/icon2"
+                android:layout_marginStart="25dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:id="@+id/icon3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_library_icon"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="library"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/ui_text_black"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/icon3"
+                android:layout_marginStart="25dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/student_report_drawer_action"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:id="@+id/icon4"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_report_icon"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="student report"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/ui_text_black"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/icon4"
+                android:layout_marginStart="25dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:id="@+id/icon5"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_profile_icon"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="profile"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/ui_text_black"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/icon5"
+                android:layout_marginStart="25dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/admin_logout_drawer_action"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:id="@+id/icon6"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_logout_icon"
+                android:layout_centerVertical="true"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Logout"
                 android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textSize="18sp"
+                android:textAllCaps="true"
+                android:textSize="14sp"
                 android:fontFamily="@font/roboto_medium"
-                android:textColor="@color/ui_black"
-                android:layout_centerInParent="true"/>
-
-            <View
-                android:layout_width="250dp"
-                android:layout_height="2dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:background="#D3D3D3"/>
+                android:textColor="@color/ui_text_black"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/icon6"
+                android:layout_marginStart="25dp"/>
 
         </RelativeLayout>
 

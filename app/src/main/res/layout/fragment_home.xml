@@ -5,10 +5,51 @@
     android:layout_height="match_parent"
     tools:context=".fragment.Home">
 
+    <ProgressBar
+        android:id="@+id/circulre_progress"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@color/circle_progressbar_color"
+        android:visibility="visible"/>
+
+    <LinearLayout
+        android:id="@+id/connection_error_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_errormsg"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="oops!"
+            android:textSize="26sp"
+            android:fontFamily="@font/roboto_bold"
+            android:textAllCaps="true"
+            android:textColor="@color/ui_text_black"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please check your network connection."
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:fontFamily="@font/roboto"/>
+    </LinearLayout>
+
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/home_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,49 +67,75 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="New Tasks"
-                    android:textColor="@color/ui_text_black"
+                    android:text="Today's Tasks"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
+                    android:textColor="@color/ui_text_black"
                     android:textSize="14sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/fragment_newTask_recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="visible" />
+
+                <LinearLayout
+                    android:id="@+id/task_ability_massage"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/gray_curve_bg"
+                    android:padding="10dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto"
+                        android:text="Not available any task."
+                        android:textAllCaps="false"
+                        android:textColor="@color/ui_text_black"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Completed"
-                    android:textColor="@color/ui_text_black"
                     android:fontFamily="@font/roboto_bold"
-                    android:textSize="14sp"
+                    android:text="Completed"
                     android:textAlignment="textStart"
-                    android:textAllCaps="false"/>
+                    android:textAllCaps="false"
+                    android:textColor="@color/ui_text_black"
+                    android:textSize="14sp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:padding="10dp"
                     android:background="@drawable/gray_curve_bg"
-                    android:layout_gravity="center_vertical">
+                    android:padding="10dp">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="No Tasks Have been Completed."
                         android:fontFamily="@font/roboto"
-                        android:textSize="12sp"
+                        android:text="No Tasks Have been Completed."
                         android:textAllCaps="false"
-                        android:textColor="@color/ui_text_black"/>
+                        android:textColor="@color/ui_text_black"
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 

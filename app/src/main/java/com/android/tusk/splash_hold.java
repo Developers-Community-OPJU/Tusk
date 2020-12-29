@@ -5,9 +5,11 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.android.tusk.Admin.admin_dashboard;
 import com.android.tusk.retrofit.SessionManager;
 
 public class splash_hold extends AppCompatActivity {
@@ -39,9 +41,14 @@ public class splash_hold extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (sessionManager.getAuthToken() != null){
-            startActivity(new Intent(splash_hold.this, Dashboard.class));
-            finish();
+        if (sessionManager.getAuthToken() != null) {
+            if (sessionManager.getUserRole().equals("Student")) {
+                startActivity(new Intent(splash_hold.this, Dashboard.class));
+                finish();
+            } else if (sessionManager.getUserRole().equals("Admin")) {
+                startActivity(new Intent(splash_hold.this, admin_dashboard.class));
+                finish();
+            }
         }
     }
 }
