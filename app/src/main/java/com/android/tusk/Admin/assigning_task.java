@@ -188,7 +188,7 @@ public class assigning_task extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.student_assign_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
 
         branchatxt = findViewById(R.id.branch_search_autocomplete_textview);
         semesteratxt = findViewById(R.id.semester_search_autocomplete_textview);

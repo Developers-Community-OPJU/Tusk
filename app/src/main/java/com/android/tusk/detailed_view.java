@@ -105,6 +105,6 @@ public class detailed_view extends AppCompatActivity {
 
         expand_recycler = findViewById(R.id.expandable_milestone_recyclerview);
         expand_recycler.setLayoutManager(new LinearLayoutManager(this));
-        expand_recycler.setHasFixedSize(true);
+        expand_recycler.setHasFixedSize(false);
     }
 }

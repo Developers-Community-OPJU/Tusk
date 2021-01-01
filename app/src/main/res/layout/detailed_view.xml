@@ -241,7 +241,8 @@
                     android:id="@+id/expandable_milestone_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp" />
+                    android:layout_marginTop="20dp"
+                    android:nestedScrollingEnabled="false"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:layout_width="150dp"
