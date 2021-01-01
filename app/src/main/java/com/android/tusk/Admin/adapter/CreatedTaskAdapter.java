@@ -2,11 +2,15 @@ package com.android.tusk.Admin.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.tusk.R;
@@ -87,10 +91,11 @@ public class CreatedTaskAdapter extends RecyclerView.Adapter<CreatedTaskAdapter.
         return taskList.size();
     }
 
-    public class NewTaskViewholder extends RecyclerView.ViewHolder{
+    public class NewTaskViewholder extends RecyclerView.ViewHolder implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
 
         TextView milestones, heading, assignedby, date;
-        TextView editbtn, deletebtn;
+//        TextView editbtn, deletebtn;
+        ImageView popup_ic;
 
         public NewTaskViewholder(@NonNull View itemView) {
             super(itemView);
@@ -99,19 +104,46 @@ public class CreatedTaskAdapter extends RecyclerView.Adapter<CreatedTaskAdapter.
             heading = itemView.findViewById(R.id.admin_heading_textview);
             assignedby = itemView.findViewById(R.id.admin_assignedby_textview);
             date = itemView.findViewById(R.id.admin_date_textview);
-            editbtn = itemView.findViewById(R.id.admin_edit_button);
-            deletebtn = itemView.findViewById(R.id.admin_delete_button);
+            popup_ic = itemView.findViewById(R.id.popup_icon_view);
 
-            deletebtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            popup_ic.setOnClickListener(this);
+//            editbtn = itemView.findViewById(R.id.admin_edit_button);
+//            deletebtn = itemView.findViewById(R.id.admin_delete_button);
+
+//            deletebtn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    actionClick.onCardActionClick(getAdapterPosition());
+//                    taskList.remove(getAdapterPosition());
+//                    notifyItemRemoved(getAdapterPosition());
+//                    notifyItemRangeChanged(getAdapterPosition(), taskList.size());
+//                }
+//            });
+
+        }
+
+        @Override
+        public void onClick(View view) {
+            PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+            popupMenu.inflate(R.menu.admin_dash_popup_menu);
+            popupMenu.setOnMenuItemClickListener(this);
+            popupMenu.show();
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()){
+                case R.id.edit_action:
+                    Toast.makeText(context, "edit clicked", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.delete_action:
                     actionClick.onCardActionClick(getAdapterPosition());
                     taskList.remove(getAdapterPosition());
                     notifyItemRemoved(getAdapterPosition());
                     notifyItemRangeChanged(getAdapterPosition(), taskList.size());
-                }
-            });
-
+                    break;
+            }
+            return true;
         }
     }
 }

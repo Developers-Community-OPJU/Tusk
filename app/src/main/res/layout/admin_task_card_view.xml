@@ -88,28 +88,33 @@
                         android:orientation="horizontal"
                         android:gravity="end|center_vertical">
 
-                        <TextView
-                            android:id="@+id/admin_edit_button"
+                        <ImageView
+                            android:id="@+id/popup_icon_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="edit"
-                            android:textAllCaps="true"
-                            android:textSize="12sp"
-                            android:paddingEnd="12dp"
-                            android:paddingStart="1dp"
-                            android:fontFamily="@font/roboto_medium"
-                            android:textColor="@color/ui_purple"/>
-                        <TextView
-                            android:id="@+id/admin_delete_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="delete"
-                            android:paddingStart="12dp"
-                            android:paddingEnd="1dp"
-                            android:textAllCaps="true"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/roboto_medium"
-                            android:textColor="@color/ui_purple"/>
+                            android:src="@drawable/ic_vertical_dots"/>
+<!--                        <TextView-->
+<!--                            android:id="@+id/admin_edit_button"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="edit"-->
+<!--                            android:textAllCaps="true"-->
+<!--                            android:textSize="12sp"-->
+<!--                            android:paddingEnd="12dp"-->
+<!--                            android:paddingStart="1dp"-->
+<!--                            android:fontFamily="@font/roboto_medium"-->
+<!--                            android:textColor="@color/ui_purple"/>-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/admin_delete_button"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="delete"-->
+<!--                            android:paddingStart="12dp"-->
+<!--                            android:paddingEnd="1dp"-->
+<!--                            android:textAllCaps="true"-->
+<!--                            android:textSize="12sp"-->
+<!--                            android:fontFamily="@font/roboto_medium"-->
+<!--                            android:textColor="@color/ui_purple"/>-->
 
                     </LinearLayout>
                 </LinearLayout>
