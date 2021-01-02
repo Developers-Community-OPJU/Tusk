@@ -19,6 +19,7 @@ import com.android.tusk.Admin.model.AssignTaskResponse;
 import com.android.tusk.Admin.model.MilestoneCollectionRequest;
 import com.android.tusk.R;
 import com.android.tusk.retrofit.APIclient;
+import com.android.tusk.retrofit.SessionManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -65,12 +66,17 @@ public class create_task extends AppCompatActivity {
 
         initializeView();
 
+        SessionManager sessionManager = new SessionManager(this);
+        sessionManager.CreatePreferences();
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setCustomView(R.layout.admin_actionbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
 
         editTextCalendarIconClickListener();
+
+        assignbyEdx.setText(sessionManager.getFirstName()+" "+sessionManager.getLastName());
 
         addMilestonebtn.setOnClickListener(new View.OnClickListener() {
             @Override
