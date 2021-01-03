@@ -145,7 +145,7 @@ public class Home extends Fragment implements NewTaskAdapter.taskDetailedView {
     private void initializeView(View view) {
         newTaskRecycler = view.findViewById(R.id.fragment_newTask_recyclerView);
         newTaskRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        newTaskRecycler.setHasFixedSize(true);
+        newTaskRecycler.setHasFixedSize(false);
 
         taskabilitymsg = view.findViewById(R.id.task_ability_massage);
         content_progress = view.findViewById(R.id.circulre_progress);

@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Login_screen extends AppCompatActivity {
+public class Login_screen extends AppCompatActivity implements TextWatcher {
 
     RelativeLayout submitbtn;
     TextView signupbtn;
@@ -56,11 +59,52 @@ public class Login_screen extends AppCompatActivity {
         submitbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.showLoader();
-                requestToServer();
+                if (Validation()) {
+                    progressDialog.showLoader();
+                    requestToServer();
+                }
             }
         });
 
+    }
+
+    private boolean Validation() {
+        String id = idedtx.getText().toString().trim();
+        String password = passwordedtx.getText().toString().trim();
+
+        //implement text change change listener
+        idedtx.addTextChangedListener(this);
+        passwordedtx.addTextChangedListener(this);
+
+        if (TextUtils.isEmpty(id)){
+            id_textInput_lay.setErrorEnabled(true);
+            id_textInput_lay.setError("Registration id is required");
+            idedtx.setFocusableInTouchMode(true);
+            idedtx.requestFocus();
+            return false;
+        }else if (id.length() < 6){
+            id_textInput_lay.setErrorEnabled(true);
+            id_textInput_lay.setError("length must be atleast 6 characters");
+            idedtx.setFocusableInTouchMode(true);
+            idedtx.requestFocus();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(password)){
+            password_textInput_lay.setErrorEnabled(true);
+            password_textInput_lay.setError("Password is required");
+            passwordedtx.setFocusableInTouchMode(true);
+            passwordedtx.requestFocus();
+            return false;
+        }else if (password.length() < 6){
+            password_textInput_lay.setErrorEnabled(true);
+            password_textInput_lay.setError("length must be atleast 6 characters");
+            passwordedtx.setFocusableInTouchMode(true);
+            passwordedtx.requestFocus();
+            return false;
+        }
+
+        return true;
     }
 
     private void requestToServer() {
@@ -121,6 +165,9 @@ public class Login_screen extends AppCompatActivity {
                                 progressDialog.dismissLoader();
                             }
                         });
+                    }else {
+                        ToastMassage(loginResponse.getMsg());
+                        progressDialog.dismissLoader();
                     }
                 }
             }
@@ -150,5 +197,25 @@ public class Login_screen extends AppCompatActivity {
         //initialize textInputEditText
         idedtx = findViewById(R.id.login_id_edittext);
         passwordedtx = findViewById(R.id.login_password_edittext);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        if (id_textInput_lay.isErrorEnabled()){
+            id_textInput_lay.setErrorEnabled(false);
+        }
+        if (password_textInput_lay.isErrorEnabled()){
+            password_textInput_lay.setErrorEnabled(false);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
     }
 }

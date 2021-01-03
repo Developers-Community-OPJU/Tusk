@@ -13,6 +13,7 @@
         android:indeterminateTint="@color/circle_progressbar_color"
         android:visibility="visible"/>
 
+    <!--error massage, when network not available-->
     <LinearLayout
         android:id="@+id/connection_error_msg"
         android:layout_width="match_parent"
@@ -77,7 +78,8 @@
                     android:id="@+id/fragment_newTask_recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:nestedScrollingEnabled="false"/>
 
                 <LinearLayout
                     android:id="@+id/task_ability_massage"

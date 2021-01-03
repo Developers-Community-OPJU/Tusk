@@ -98,7 +98,7 @@ public class admin_dash_fragment extends Fragment implements CreatedTaskAdapter.
     private void initializeView(View view) {
         recyclerView = view.findViewById(R.id.fragment_recentTask_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
 
         floatingActionButton = view.findViewById(R.id.createTask_floating_button);
     }
