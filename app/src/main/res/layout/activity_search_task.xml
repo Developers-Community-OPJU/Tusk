@@ -38,6 +38,8 @@
                         android:layout_height="40dp"
                         android:background="@drawable/gray_stroke"
                         android:focusable="true"
+                        android:maxLines="1"
+                        android:inputType="text"
                         android:hint="Search here.." />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -45,12 +47,36 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <ProgressBar
+        android:id="@+id/search_circulre_progress"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:indeterminateTint="@color/circle_progressbar_color"
+        android:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/error_massage_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="can't able to search! refresh.."
+        android:textSize="14sp"
+        android:textAllCaps="false"
+        android:textAlignment="center"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/roboto"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"/>
+
     <LinearLayout
+        android:id="@+id/search_content_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
+        android:layout_marginEnd="16dp"
+        android:visibility="gone">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_task_recyclerview"

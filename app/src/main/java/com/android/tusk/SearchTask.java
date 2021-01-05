@@ -14,6 +14,9 @@ import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.tusk.adapter.NewTaskAdapter;
@@ -56,6 +59,9 @@ public class SearchTask extends AppCompatActivity implements SearchAllTaskAdapte
     List<Task> taskArrayList;
     List<Task> filterTaskList;
     SearchAllTaskAdapter taskAdapter;
+    ProgressBar search_progress;
+    LinearLayout content;
+    TextView errortxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +80,9 @@ public class SearchTask extends AppCompatActivity implements SearchAllTaskAdapte
 
         recyclerView = findViewById(R.id.search_task_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        search_progress = findViewById(R.id.search_circulre_progress);
+        content = findViewById(R.id.search_content_layout);
+        errortxt = findViewById(R.id.error_massage_textview);
 
         fetchAllTaskforSearch();
 
@@ -167,6 +176,7 @@ public class SearchTask extends AppCompatActivity implements SearchAllTaskAdapte
     }
 
     private void fetchAllTaskforSearch() {
+        search_progress.setVisibility(View.VISIBLE);
         Call<AllTask> allTaskCall = APIclient.getInterface().getAllTask();
         allTaskCall.enqueue(new Callback<AllTask>() {
             @Override
@@ -182,12 +192,17 @@ public class SearchTask extends AppCompatActivity implements SearchAllTaskAdapte
                     taskAdapter = new SearchAllTaskAdapter(SearchTask.this, taskArrayList);
                     taskAdapter.setOnItemViewClickListener(SearchTask.this);
                     recyclerView.setAdapter(taskAdapter);
+
+                    search_progress.setVisibility(View.GONE);
+                    content.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<AllTask> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+                search_progress.setVisibility(View.GONE);
+                errortxt.setVisibility(View.VISIBLE);
             }
         });
     }

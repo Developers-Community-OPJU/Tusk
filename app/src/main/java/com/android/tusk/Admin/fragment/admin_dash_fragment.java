@@ -3,6 +3,7 @@ package com.android.tusk.Admin.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.tusk.Admin.adapter.CreatedTaskAdapter;
@@ -35,6 +38,9 @@ public class admin_dash_fragment extends Fragment implements CreatedTaskAdapter.
     RecyclerView recyclerView;
     ExtendedFloatingActionButton floatingActionButton;
     List<Task> taskList;
+    NestedScrollView content;
+    LinearLayout networkErrorMsg;
+    ProgressBar progressBar;
 
     CreatedTaskAdapter taskAdapter;
 
@@ -69,6 +75,7 @@ public class admin_dash_fragment extends Fragment implements CreatedTaskAdapter.
     }
 
     private void setRecentTaskCardData() {
+        progressBar.setVisibility(View.VISIBLE);
         Call<AllTask> allTaskCall = APIclient.getInterface().getAllTask();
         allTaskCall.enqueue(new Callback<AllTask>() {
             @Override
@@ -85,12 +92,17 @@ public class admin_dash_fragment extends Fragment implements CreatedTaskAdapter.
                     recyclerView.setAdapter(taskAdapter);
                     taskAdapter.setOnCardActionClickListener(admin_dash_fragment.this);
                     taskAdapter.notifyDataSetChanged();
+
+                    progressBar.setVisibility(View.GONE);
+                    content.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<AllTask> call, Throwable t) {
-                ToastMassage("failed");
+                ToastMassage("can't reach to the server! try again");
+                progressBar.setVisibility(View.GONE);
+                networkErrorMsg.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -101,6 +113,9 @@ public class admin_dash_fragment extends Fragment implements CreatedTaskAdapter.
         recyclerView.setHasFixedSize(false);
 
         floatingActionButton = view.findViewById(R.id.createTask_floating_button);
+        content = view.findViewById(R.id.admin_home_content);
+        networkErrorMsg = view.findViewById(R.id.network_error_msg_layout);
+        progressBar = view.findViewById(R.id.admin_progressbar);
     }
 
     private void ToastMassage(String msg){
