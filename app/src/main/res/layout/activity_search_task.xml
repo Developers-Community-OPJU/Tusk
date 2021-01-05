@@ -38,6 +38,8 @@
                         android:layout_height="40dp"
                         android:background="@drawable/gray_stroke"
                         android:focusable="true"
+                        android:maxLines="1"
+                        android:inputType="text"
                         android:hint="Search here.." />
 
                 </com.google.android.material.textfield.TextInputLayout>
